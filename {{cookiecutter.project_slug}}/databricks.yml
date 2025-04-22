@@ -1,0 +1,33 @@
+bundle:
+  name: "{{ cookiecutter.project_slug }}"
+
+artifacts:
+  {{ cookiecutter.project_slug }}:
+    type: whl
+    build: poetry build
+    path: .
+
+resources:
+  jobs:
+    {{ cookiecutter.project_slug }}_job:
+      name: "{{ cookiecutter.project_name }} Job"
+      tasks:
+        - task_key: "main_task"
+          python_wheel_task:
+            package_name: "{{ cookiecutter.project_slug }}"
+            entry_point: "main"
+            named_parameters: 
+              table-name: "your_catalog.your_schema.your_table"
+          environment_key: Default
+      queue:
+        enabled: true
+      environments:
+        - environment_key: Default
+          spec:
+            client: "2"
+            dependencies:
+              - ./dist/*.whl
+
+targets:
+  dev:
+    default: true 
