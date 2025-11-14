@@ -24,7 +24,7 @@ resources:
       environments:
         - environment_key: Default
           spec:
-            client: "2"
+            client: "{{ cookiecutter.databricks_serverless_client_version }}"
             dependencies:
               - ./dist/*.whl
 
