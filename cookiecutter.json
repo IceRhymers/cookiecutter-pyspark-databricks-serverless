@@ -4,8 +4,8 @@
   "project_description": "A PySpark application for Databricks deployment",
   "author_name": "Your Name",
   "author_email": "your.email@example.com",
-  "python_version": "3.11",
-  "databricks_connect_version": "16.1",
+  "python_version": "3.12",
+  "databricks_connect_version": "17.0",
   "include_cli": "yes",
   "include_tests": "yes",
   "include_docs": "no"
