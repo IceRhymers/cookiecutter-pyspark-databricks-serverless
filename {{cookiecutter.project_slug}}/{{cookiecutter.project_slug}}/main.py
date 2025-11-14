@@ -1,19 +1,16 @@
+import os
 from typing import Optional
 from pyspark.sql import SparkSession, DataFrame
 from argparse import ArgumentParser
 
-def create_spark_session(use_databricks_connect: bool = False) -> SparkSession:
+def create_spark_session() -> SparkSession:
     """
-    Create and return a Spark session.
-    
-    Args:
-        use_databricks_connect: If True, use Databricks Connect for local development.
-                               If False, use standard Spark session (default).
+    Create and return a Spark session. Will use Databricks Connect if we're running outside of the Databricks environment.
     
     Returns:
         SparkSession: Configured Spark session
     """
-    if use_databricks_connect:
+    if os.environ.get("DATABRICKS_RUNTIME_VERSION") is None:
         try:
             # Import and use Databricks Connect
             from databricks.connect import DatabricksSession
@@ -51,15 +48,13 @@ def main() -> None:
     # Define parser
     parser = ArgumentParser(description="{{ cookiecutter.project_description }}")
     parser.add_argument("--table-name", '-t', type=str, help="Name of the table to scan")
-    parser.add_argument("--local", '-l', action='store_true', help="Use Databricks Connect for local development")
     args = parser.parse_args()
 
     # Extract Arguments
     table_name = args.table_name
-    use_local = args.local
 
     # Create Spark session
-    spark: SparkSession = create_spark_session(use_local)
+    spark: SparkSession = create_spark_session()
     
     try:
         # Scan the table
