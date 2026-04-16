@@ -5,8 +5,8 @@
   "author_name": "Your Name",
   "author_email": "your.email@example.com",
   "python_version": "3.12",
-  "databricks_connect_version": "17.0",
-  "databricks_serverless_client_version": "4",
+  "databricks_connect_version": "18.0.5",
+  "databricks_serverless_client_version": "5",
   "include_cli": "yes",
   "include_tests": "yes",
   "include_docs": "no"
